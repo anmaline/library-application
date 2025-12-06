@@ -20,6 +20,7 @@ A local Python application to manage a simple **book database in JSON**.
 ## Run CLI
 ```bash
 python my_library_db.py library.json --cli
+```
 
 ## Run Web UI
 ```bash
