@@ -1,28 +1,46 @@
-# Library DB
+# Library DB Application
 
-A local Python application to manage a simple **book database in JSON**.
+A local Python library management application with CLI and Web UI interfaces.
 
-## What it does
-- Stores books in `library.json` with fields: **title, author, isbn, year**.
-- Keeps the file **sorted by publishing year (ascending)** after every change.
-- **Web UI (default)**: table view + **Add (with confirmation)**, **Edit**, **Delete**.
-- **CLI**: menu with **1) Add**, **2) Print**, **Q) Exit**.
-- **Validation**:
-  - ISBN must have **10 or 13 digits** (hyphens/spaces allowed).
-  - Year must be **0..current year**.
-  - CLI prompts validate **immediately** and let you **cancel** (`Q/quit/exit/cancel`) at any field.
-- **Seeding**: if `library.json` is **missing or empty**, a demo dataset is created on first run.
-- **First run (Web UI only)**: creates a local `.venv` and installs **Flask** automatically.
+## Features
 
-## Requirements
-- Python **3.10+**
+- **JSON storage** - Books are persisted in a JSON file
+- **Web UI** - Beautiful responsive interface with Add, Edit, and Delete operations
+- **CLI mode** - Simple command-line interface for terminal users
+- **Auto-seeding** - Comes with demo data if database is empty
+- **Virtual environment bootstrap** - Automatically creates .venv and installs Flask
 
-## Run CLI
-```bash
-python library_db_application.py library.json --cli
+## Folder Structure
+
+```
+library_db_modular/
+  library_db/
+    __init__.py          # Package exports
+    app.py               # Entry-point helpers (parse args, main)
+    bootstrap.py         # Optional venv+Flask bootstrap (relaunch into .venv)
+    models.py            # Book dataclass + validation + book_id()
+    seed.py              # DEFAULT_SEED demo data
+    storage.py           # LibraryDB JSON persistence (load/save/add/update/delete)
+    cli/
+      __init__.py
+      app.py             # CLI main loop (add/print/quit)
+      menu.py            # Robust keypress menu for Windows/non-Windows
+      prompts.py         # All input prompts & validation
+    web/
+      __init__.py
+      app.py             # Flask app factory + helpers (Add/Edit/Delete with confirm)
+  library.json           # An example data set of books (If not found, automatically created)
+  README.md              # This file
+  requirements.txt       # flask>=2.2,<4
+  run.py                 # Convenience runner
 ```
 
-## Run Web UI
+## Usage
+
 ```bash
-python library_db_application.py library.json
-# Opens automatically in http://127.0.0.1:5000
+# CLI mode
+python run_library.py library.json --cli
+
+# Web UI
+python run_library.py library.json
+```
