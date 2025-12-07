@@ -19,10 +19,10 @@ A local Python application to manage a simple **book database in JSON**.
 
 ## Run CLI
 ```bash
-python my_library_db.py library.json --cli
+python library_db_application.py library.json --cli
 ```
 
 ## Run Web UI
 ```bash
-python my_library_db.py library.json
+python library_db_application.py library.json
 # Opens automatically in http://127.0.0.1:5000
